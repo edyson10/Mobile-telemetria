@@ -1,0 +1,144 @@
+<ion-content [fullscreen]="true">
+
+  <main class="alerts-page">
+
+    <header class="alerts-page__header">
+
+      <div>
+        <h1>Alertas</h1>
+        <p>Revisa las alertas de tu flota</p>
+      </div>
+
+      <div class="alerts-page__count">
+        {{ alerts.filter(a => a.active).length }}
+      </div>
+
+    </header>
+
+    <section class="alerts-filters">
+
+      <button
+        type="button"
+        [class.alerts-filters__active]="selectedFilter === 'ALL'"
+        (click)="selectFilter('ALL')"
+      >
+        Todas
+      </button>
+
+      <button
+        type="button"
+        [class.alerts-filters__active]="selectedFilter === 'ACTIVE'"
+        (click)="selectFilter('ACTIVE')"
+      >
+        Activas
+      </button>
+
+      <button
+        type="button"
+        [class.alerts-filters__active]="selectedFilter === 'HISTORY'"
+        (click)="selectFilter('HISTORY')"
+      >
+        Historial
+      </button>
+
+    </section>
+
+    <section class="alerts-list">
+
+      <article
+        class="alert-card"
+        *ngFor="let alert of filteredAlerts"
+      >
+
+        <div
+          class="alert-card__icon"
+          [class.alert-card__icon--speed]="alert.type === 'SPEED'"
+          [class.alert-card__icon--route]="alert.type === 'ROUTE'"
+        >
+          {{ getAlertIcon(alert.type) }}
+        </div>
+
+        <div class="alert-card__content">
+
+          <div class="alert-card__title-row">
+
+            <h2>{{ alert.title }}</h2>
+
+            <span
+              class="alert-card__status"
+              [class.alert-card__status--history]="!alert.active"
+            >
+              {{ alert.active ? 'Activa' : 'Historial' }}
+            </span>
+
+          </div>
+
+          <p>
+            {{ alert.description }}
+          </p>
+
+          <div class="alert-card__footer">
+
+            <strong>
+              {{ alert.vehicleId }}
+            </strong>
+
+            <span>
+              {{ alert.time }}
+            </span>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    </section>
+
+    <nav class="bottom-navigation">
+
+      <a
+        class="bottom-navigation__item"
+        routerLink="/home"
+      >
+        <span>⌂</span>
+        <small>Inicio</small>
+      </a>
+
+      <a
+        class="bottom-navigation__item"
+        routerLink="/vehicles"
+      >
+        <span>🚚</span>
+        <small>Vehículos</small>
+      </a>
+
+      <a
+        class="bottom-navigation__item bottom-navigation__item--active"
+        routerLink="/alerts"
+      >
+        <span>⚠</span>
+        <small>Alertas</small>
+      </a>
+
+      <a
+        class="bottom-navigation__item"
+        routerLink="/routes"
+      >
+        <span>⌁</span>
+        <small>Rutas</small>
+      </a>
+
+      <a
+        class="bottom-navigation__item"
+        routerLink="/more"
+      >
+        <span>☰</span>
+        <small>Más</small>
+      </a>
+
+    </nav>
+
+  </main>
+
+</ion-content>

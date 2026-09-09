@@ -1,0 +1,149 @@
+<ion-content [fullscreen]="true">
+
+  <main class="vehicle-detail">
+
+    <header class="vehicle-detail__header">
+
+      <a
+        class="vehicle-detail__back"
+        routerLink="/vehicles"
+        aria-label="Volver"
+      >
+        ‹
+      </a>
+
+      <div class="vehicle-detail__heading">
+        <h1>{{ vehicle.id }}</h1>
+
+        <span class="vehicle-detail__status">
+          <span></span>
+          En movimiento
+        </span>
+      </div>
+
+      <button
+        class="vehicle-detail__more"
+        type="button"
+        aria-label="Más opciones"
+      >
+        ⋮
+      </button>
+
+    </header>
+
+    <nav class="vehicle-detail__tabs">
+
+      <button
+        class="vehicle-detail__tab vehicle-detail__tab--active"
+        type="button"
+      >
+        Resumen
+      </button>
+
+      <button
+        class="vehicle-detail__tab"
+        type="button"
+      >
+        Ubicación
+      </button>
+
+      <button
+        class="vehicle-detail__tab"
+        type="button"
+      >
+        Alertas
+      </button>
+
+    </nav>
+
+    <section class="vehicle-detail__vehicle">
+
+      <div class="vehicle-detail__truck">
+        🚚
+      </div>
+
+      <div>
+        <h2>{{ vehicle.id }}</h2>
+        <p>Vehículo de transporte</p>
+      </div>
+
+    </section>
+
+    <section class="vehicle-detail__metrics">
+
+      <article class="metric-card">
+
+        <div class="metric-card__icon metric-card__icon--blue">
+          ◉
+        </div>
+
+        <span>Velocidad</span>
+
+        <strong>
+          {{ vehicle.speed }}
+          <small>km/h</small>
+        </strong>
+
+      </article>
+
+      <article class="metric-card">
+
+        <div class="metric-card__icon metric-card__icon--green">
+          ▰
+        </div>
+
+        <span>Batería</span>
+
+        <strong>
+          {{ vehicle.battery }}
+          <small>%</small>
+        </strong>
+
+      </article>
+
+    </section>
+
+    <section class="vehicle-detail__information">
+
+      <h2>Información</h2>
+
+      <div class="information-row">
+
+        <div class="information-row__icon">
+          ◎
+        </div>
+
+        <div>
+          <span>Última ubicación</span>
+          <strong>{{ vehicle.location }}</strong>
+        </div>
+
+      </div>
+
+      <div class="information-row">
+
+        <div class="information-row__icon">
+          ◷
+        </div>
+
+        <div>
+          <span>Última actualización</span>
+          <strong>{{ vehicle.lastUpdate }}</strong>
+        </div>
+
+      </div>
+
+    </section>
+
+    <a
+      class="vehicle-detail__map-button"
+      routerLink="/routes"
+    >
+      <span>◎</span>
+      Ver en mapa
+      <span>›</span>
+    </a>
+
+  </main>
+
+</ion-content>

@@ -1,0 +1,294 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
+ion-content {
+  --background: #f5f7fb;
+}
+
+.vehicles-page {
+  min-height: 100%;
+  padding: 20px 16px 96px;
+  box-sizing: border-box;
+}
+
+/* HEADER */
+
+.vehicles-page__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.vehicles-page__header h1 {
+  margin: 0;
+  color: #18243a;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.vehicles-page__header p {
+  margin: 5px 0 0;
+  color: #7b8495;
+  font-size: 12px;
+}
+
+.vehicles-page__notification {
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 12px;
+  background: #ffffff;
+  font-size: 17px;
+  box-shadow: 0 3px 12px rgba(24, 36, 58, 0.06);
+}
+
+/* SEARCH */
+
+.vehicles-page__search {
+  height: 46px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px;
+  box-sizing: border-box;
+
+  background: #ffffff;
+  border: 1px solid #e8ecf2;
+  border-radius: 13px;
+
+  margin-bottom: 14px;
+}
+
+.vehicles-page__search-icon {
+  color: #8c95a5;
+  font-size: 22px;
+}
+
+.vehicles-page__search input {
+  flex: 1;
+  min-width: 0;
+
+  border: 0;
+  outline: 0;
+  background: transparent;
+
+  color: #18243a;
+  font-size: 13px;
+}
+
+.vehicles-page__search input::placeholder {
+  color: #a3aab7;
+}
+
+/* SUMMARY */
+
+.vehicles-page__summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.vehicles-page__summary div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 64px;
+
+  background: #ffffff;
+  border: 1px solid #e9edf3;
+  border-radius: 13px;
+}
+
+.vehicles-page__summary strong {
+  color: #18243a;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.vehicles-page__summary span {
+  margin-top: 3px;
+  color: #8b94a4;
+  font-size: 9px;
+}
+
+/* VEHICLE LIST */
+
+.vehicles-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.vehicle-card {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+
+  padding: 13px;
+
+  background: #ffffff;
+  border: 1px solid #e8ecf2;
+  border-radius: 15px;
+
+  box-shadow: 0 3px 10px rgba(24, 36, 58, 0.035);
+}
+
+.vehicle-card__icon {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 12px;
+  background: #eaf8f0;
+
+  font-size: 20px;
+}
+
+.vehicle-card__info {
+  min-width: 0;
+  flex: 1;
+}
+
+.vehicle-card__title-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.vehicle-card__title-row h2 {
+  margin: 0;
+
+  color: #18243a;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.vehicle-card__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  padding: 3px 7px;
+
+  border-radius: 20px;
+  background: #eaf8f0;
+
+  color: #20a765;
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.vehicle-card__status span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #20b96b;
+}
+
+.vehicle-card__status--stopped {
+  background: #fff0f1;
+  color: #e34c57;
+}
+
+.vehicle-card__status--stopped span {
+  background: #f04452;
+}
+
+.vehicle-card__location {
+  margin: 4px 0;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  color: #8992a2;
+  font-size: 9px;
+}
+
+.vehicle-card__details {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  color: #9ba3b0;
+  font-size: 8px;
+}
+
+.vehicle-card__details strong {
+  color: #18243a;
+  font-size: 10px;
+}
+
+.vehicle-card__arrow {
+  width: 28px;
+  height: 28px;
+
+  flex-shrink: 0;
+
+  border: 0;
+  border-radius: 50%;
+
+  background: #f5f7fb;
+  color: #667085;
+
+  font-size: 20px;
+}
+
+/* BOTTOM NAVIGATION */
+
+.bottom-navigation {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 58px;
+
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+
+  background: #ffffff;
+  border-top: 1px solid #edf0f4;
+
+  z-index: 20;
+}
+
+.bottom-navigation__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+
+  border: 0;
+  background: transparent;
+
+  color: #8d96a6;
+  text-decoration: none;
+}
+
+.bottom-navigation__item span {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.bottom-navigation__item small {
+  font-size: 7px;
+  font-weight: 600;
+}
+
+.bottom-navigation__item--active {
+  color: #1677f5;
+}
