@@ -1,9 +1,14 @@
 <ion-content [fullscreen]="true">
   <main class="routes-page">
     <header class="routes-page__header">
-      <a class="routes-page__back" routerLink="/home" aria-label="Volver">
+      <button
+        class="routes-page__back"
+        type="button"
+        (click)="goBack()"
+        aria-label="Volver"
+      >
         ‹
-      </a>
+      </button>
 
       <div>
         <h1>Mapa y ruta</h1>
@@ -116,7 +121,5 @@
 
     <!-- Bottom navigation -->
     <app-bottom-navigation />
-    
   </main>
 </ion-content>
-

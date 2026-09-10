@@ -16,36 +16,50 @@
     </header>
 
     <section class="vehicles-page__search">
-      <span class="vehicles-page__search-icon"> ⌕ </span>
+      <span class="vehicles-page__search-icon">⌕</span>
 
       <input type="search" placeholder="Buscar vehículo..." />
     </section>
 
     <section class="vehicles-page__summary">
       <div>
-        <strong>{{ vehicles.length }}</strong>
+        <strong>{{ vehicles().length }}</strong>
         <span>Total</span>
       </div>
 
       <div>
-        <strong>
-          {{ vehicles.filter(v => v.status === 'MOVING').length }}
-        </strong>
+        <strong> {{ getMovingVehicles() }} </strong>
         <span>En movimiento</span>
       </div>
 
       <div>
-        <strong>
-          {{ vehicles.filter(v => v.status === 'STOPPED').length }}
-        </strong>
+        <strong> {{ getStoppedVehicles() }} </strong>
         <span>Detenidos</span>
       </div>
     </section>
 
     <section class="vehicles-list">
+      <div *ngIf="loading()" class="vehicles-list__state">
+        Cargando vehículos...
+      </div>
+
+      <div
+        *ngIf="!loading() && error()"
+        class="vehicles-list__state vehicles-list__state--error"
+      >
+        No fue posible cargar los vehículos.
+      </div>
+
+      <div
+        *ngIf="!loading() && !error() && vehicles().length === 0"
+        class="vehicles-list__state"
+      >
+        No hay vehículos registrados.
+      </div>
+
       <article
         class="vehicle-card"
-        *ngFor="let vehicle of vehicles"
+        *ngFor="let vehicle of vehicles()"
         [routerLink]="['/vehicle', vehicle.id]"
         tabindex="0"
       >
@@ -57,7 +71,9 @@
 
             <span
               class="vehicle-card__status"
-              [class.vehicle-card__status--stopped]="vehicle.status === 'STOPPED'"
+              [class.vehicle-card__status--stopped]="
+                vehicle.status === 'STOPPED'
+              "
             >
               <span></span>
 
@@ -69,7 +85,7 @@
 
           <div class="vehicle-card__details">
             <span>
-              <strong>{{ vehicle.speed }}</strong>
+              <strong> {{ vehicle.speed ?? '—' }} </strong>
               km/h
             </span>
 
@@ -81,7 +97,6 @@
       </article>
     </section>
 
-    <!-- Bottom navigation -->
     <app-bottom-navigation />
   </main>
 </ion-content>

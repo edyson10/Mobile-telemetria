@@ -1,16 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { IonContent } from '@ionic/angular';
 import { RouterLink } from '@angular/router';
 
 import { BottomNavigationComponent } from '../components/bottom-navigation/bottom-navigation.component';
-
-interface Vehicle {
-  id: string;
-  status: 'MOVING' | 'STOPPED';
-  speed: number;
-  location: string;
-}
+import {
+  Vehicle,
+  VehicleService,
+} from '../services/vehicle.service';
 
 @Component({
   selector: 'app-vehicles',
@@ -20,47 +17,68 @@ interface Vehicle {
     CommonModule,
     IonContent,
     RouterLink,
-    BottomNavigationComponent
+    BottomNavigationComponent,
   ],
 })
-export class VehiclesPage {
+export class VehiclesPage implements OnInit {
 
-  vehicles: Vehicle[] = [
-    {
-      id: 'VH-001',
-      status: 'MOVING',
-      speed: 85,
-      location: 'Bogotá, Colombia',
-    },
-    {
-      id: 'VH-002',
-      status: 'MOVING',
-      speed: 62,
-      location: 'Bogotá, Colombia',
-    },
-    {
-      id: 'VH-003',
-      status: 'STOPPED',
-      speed: 0,
-      location: 'Bogotá, Colombia',
-    },
-    {
-      id: 'VH-004',
-      status: 'MOVING',
-      speed: 74,
-      location: 'Bogotá, Colombia',
-    },
-    {
-      id: 'VH-005',
-      status: 'STOPPED',
-      speed: 0,
-      location: 'Bogotá, Colombia',
-    },
-  ];
+  vehicles = signal<Vehicle[]>([]);
+
+  loading = signal(false);
+  error = signal(false);
+
+  constructor(
+    private readonly vehicleService: VehicleService,
+  ) { }
+
+  ngOnInit(): void {
+    this.loadVehicles();
+  }
+
+  loadVehicles(): void {
+    this.loading.set(true);
+    this.error.set(false);
+
+    this.vehicleService.getVehicles().subscribe({
+      next: (vehicles) => {
+
+        console.log(
+          'Vehículos recibidos del backend:',
+          vehicles,
+        );
+
+        this.vehicles.set(vehicles);
+        this.loading.set(false);
+      },
+
+      error: (error) => {
+
+        console.error(
+          'Error cargando vehículos:',
+          error,
+        );
+
+        this.loading.set(false);
+        this.error.set(true);
+      },
+    });
+  }
 
   getStatusLabel(status: Vehicle['status']): string {
     return status === 'MOVING'
       ? 'En movimiento'
       : 'Detenido';
+  }
+
+  getMovingVehicles(): number {
+    return this.vehicles().filter(
+      (vehicle) => vehicle.status === 'MOVING',
+    ).length;
+  }
+
+  getStoppedVehicles(): number {
+    return this.vehicles().filter(
+      (vehicle) => vehicle.status === 'STOPPED',
+    ).length;
   }
 }
