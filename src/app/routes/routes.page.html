@@ -1,12 +1,7 @@
 <ion-content [fullscreen]="true">
   <main class="routes-page">
-
     <header class="routes-page__header">
-      <a
-        class="routes-page__back"
-        routerLink="/home"
-        aria-label="Volver"
-      >
+      <a class="routes-page__back" routerLink="/home" aria-label="Volver">
         ‹
       </a>
 
@@ -25,7 +20,6 @@
     </header>
 
     <section class="route-map">
-
       <div class="route-map__roads route-map__roads--one"></div>
       <div class="route-map__roads route-map__roads--two"></div>
       <div class="route-map__roads route-map__roads--three"></div>
@@ -38,9 +32,7 @@
         <span>●</span>
       </div>
 
-      <div class="route-map__marker route-map__marker--vehicle">
-        🚚
-      </div>
+      <div class="route-map__marker route-map__marker--vehicle">🚚</div>
 
       <div class="route-map__marker route-map__marker--destination">
         <span>●</span>
@@ -53,17 +45,12 @@
       >
         ◎
       </button>
-
     </section>
 
     <section class="route-card">
-
       <div class="route-card__header">
-
         <div>
-          <span class="route-card__label">
-            Ruta actual
-          </span>
+          <span class="route-card__label"> Ruta actual </span>
 
           <h2>{{ route.name }}</h2>
         </div>
@@ -72,26 +59,19 @@
           <span></span>
           {{ route.status }}
         </span>
-
       </div>
 
       <div class="route-card__vehicle">
-
-        <div class="route-card__vehicle-icon">
-          🚚
-        </div>
+        <div class="route-card__vehicle-icon">🚚</div>
 
         <div>
           <span>Vehículo</span>
           <strong>{{ route.vehicleId }}</strong>
         </div>
-
       </div>
 
       <div class="route-card__locations">
-
         <div class="route-card__location">
-
           <span
             class="route-card__location-dot route-card__location-dot--origin"
           ></span>
@@ -100,13 +80,11 @@
             <small>Origen</small>
             <strong>{{ route.origin }}</strong>
           </div>
-
         </div>
 
         <div class="route-card__line"></div>
 
         <div class="route-card__location">
-
           <span
             class="route-card__location-dot route-card__location-dot--destination"
           ></span>
@@ -115,13 +93,10 @@
             <small>Destino</small>
             <strong>{{ route.destination }}</strong>
           </div>
-
         </div>
-
       </div>
 
       <div class="route-card__stats">
-
         <div>
           <span>Distancia</span>
           <strong>{{ route.distance }}</strong>
@@ -131,62 +106,17 @@
           <span>Tiempo estimado</span>
           <strong>{{ route.estimatedTime }}</strong>
         </div>
-
       </div>
 
-      <button
-        class="route-card__navigation"
-        type="button"
-      >
+      <button class="route-card__navigation" type="button">
         <span>➤</span>
         Iniciar navegación
       </button>
-
     </section>
 
+    <!-- Bottom navigation -->
+    <app-bottom-navigation />
+    
   </main>
 </ion-content>
 
-<nav class="bottom-navigation">
-
-  <a
-    class="bottom-navigation__item"
-    routerLink="/home"
-  >
-    <span>⌂</span>
-    <small>Inicio</small>
-  </a>
-
-  <a
-    class="bottom-navigation__item"
-    routerLink="/vehicles"
-  >
-    <span>🚚</span>
-    <small>Vehículos</small>
-  </a>
-
-  <a
-    class="bottom-navigation__item"
-    routerLink="/alerts"
-  >
-    <span>⚠</span>
-    <small>Alertas</small>
-  </a>
-
-  <a
-    class="bottom-navigation__item bottom-navigation__item--active"
-    routerLink="/routes"
-  >
-    <span>⌁</span>
-    <small>Rutas</small>
-  </a>
-
-  <a
-    class="bottom-navigation__item"
-    routerLink="/more"
-  >
-    <span>☰</span>
-    <small>Más</small>
-  </a>
-
-</nav>

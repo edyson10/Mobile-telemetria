@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { IonContent } from '@ionic/angular';
 import { RouterLink } from '@angular/router';
 
+import { BottomNavigationComponent } from '../components/bottom-navigation/bottom-navigation.component';
+
 interface Vehicle {
   id: string;
   status: 'MOVING' | 'STOPPED';
@@ -18,6 +20,7 @@ interface Vehicle {
     CommonModule,
     IonContent,
     RouterLink,
+    BottomNavigationComponent
   ],
 })
 export class VehiclesPage {

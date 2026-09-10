@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular';
 
-import { RouterLink } from '@angular/router';
+import { BottomNavigationComponent } from '../components/bottom-navigation/bottom-navigation.component';
 
 interface RouteInfo {
   name: string;
@@ -19,7 +19,7 @@ interface RouteInfo {
   selector: 'app-routes',
   templateUrl: './routes.page.html',
   styleUrls: ['./routes.page.scss'],
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, RouterLink]
+  imports: [IonContent, CommonModule, FormsModule, BottomNavigationComponent]
 })
 export class RoutesPage implements OnInit {
 

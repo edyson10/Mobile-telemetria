@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular';
 
+import { BottomNavigationComponent } from '../components/bottom-navigation/bottom-navigation.component';
+
 import { RouterLink } from '@angular/router';
 
 interface Alert {
@@ -18,7 +20,7 @@ interface Alert {
   selector: 'app-alerts',
   templateUrl: './alerts.page.html',
   styleUrls: ['./alerts.page.scss'],
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, RouterLink]
+  imports: [IonContent, CommonModule, FormsModule, BottomNavigationComponent]
 })
 export class AlertsPage implements OnInit {
 
