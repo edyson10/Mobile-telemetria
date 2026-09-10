@@ -1,20 +1,113 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <main class="dashboard">
+    <!-- Header -->
+    <header class="dashboard__header">
+      <div class="dashboard__brand">
+        <div class="dashboard__brand-icon">🚚</div>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+        <div>
+          <h1>Fleet Telemetry</h1>
+
+          <div class="dashboard__online">
+            <span class="dashboard__online-dot"></span>
+            En línea
+          </div>
+        </div>
+      </div>
+
+      <button
+        class="dashboard__notification"
+        type="button"
+        aria-label="Notificaciones"
+      >
+        🔔
+      </button>
+    </header>
+
+    <!-- Statistics -->
+    <section class="dashboard__stats">
+      <article class="stat-card">
+        <div class="stat-card__header">
+          <span>Vehículos</span>
+          <span class="stat-card__icon stat-card__icon--green"> 🚚 </span>
+        </div>
+
+        <strong>12</strong>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-card__header">
+          <span>Alertas</span>
+          <span class="stat-card__icon stat-card__icon--red"> ⚠ </span>
+        </div>
+
+        <strong>5</strong>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-card__header">
+          <span>Rutas</span>
+          <span class="stat-card__icon stat-card__icon--blue"> ⌁ </span>
+        </div>
+
+        <strong>8</strong>
+      </article>
+
+      <article class="stat-card">
+        <div class="stat-card__header">
+          <span>Detenidos</span>
+          <span class="stat-card__icon stat-card__icon--purple"> ⏸ </span>
+        </div>
+
+        <strong>2</strong>
+      </article>
+    </section>
+
+    <!-- Map -->
+    <section class="map-card">
+      <div class="map-card__header">
+        <h2>Mapa en tiempo real</h2>
+
+        <button
+          class="map-card__location"
+          type="button"
+          aria-label="Centrar mapa"
+        >
+          ◎
+        </button>
+      </div>
+
+      <div class="map-card__map">
+        <div class="map-card__roads map-card__roads--one"></div>
+        <div class="map-card__roads map-card__roads--two"></div>
+        <div class="map-card__roads map-card__roads--three"></div>
+        <div class="map-card__roads map-card__roads--four"></div>
+
+        <div
+          class="map-card__vehicle map-card__vehicle--green map-card__vehicle--one"
+        >
+          🚚
+        </div>
+
+        <div
+          class="map-card__vehicle map-card__vehicle--green map-card__vehicle--two"
+        >
+          🚚
+        </div>
+
+        <div class="map-card__vehicle map-card__vehicle--red">🚚</div>
+
+        <button
+          class="map-card__control"
+          type="button"
+          aria-label="Centrar ubicación"
+        >
+          ◎
+        </button>
+      </div>
+    </section>
+
+    <!-- Bottom navigation -->
+    <app-bottom-navigation />
+  </main>
 </ion-content>

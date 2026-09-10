@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular';
+import { IonContent } from '@ionic/angular';
+
+import { BottomNavigationComponent } from '../components/bottom-navigation/bottom-navigation.component';
 
 @Component({
   selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent],
+  templateUrl: './home.page.html',
+  styleUrls: ['./home.page.scss'],
+  imports: [IonContent, BottomNavigationComponent],
 })
-export class HomePage {
-  constructor() {}
-}
+export class HomePage {}

@@ -1,0 +1,53 @@
+<ion-content [fullscreen]="true">
+  <main class="more-page">
+    <header class="more-page__header">
+      <div>
+        <h1>Más</h1>
+        <p>Configuración y preferencias</p>
+      </div>
+
+      <div class="more-page__profile">👤</div>
+    </header>
+
+    <section class="profile-card">
+      <div class="profile-card__avatar">J</div>
+
+      <div class="profile-card__info">
+        <h2>Juan Pérez</h2>
+        <p>Administrador de flota</p>
+      </div>
+
+      <button class="profile-card__arrow" type="button">›</button>
+    </section>
+
+    <section class="more-menu">
+      <a
+        class="more-menu__item"
+        *ngFor="let option of menuOptions"
+        href="javascript:void(0)"
+      >
+        <div class="more-menu__icon">{{ option.icon }}</div>
+
+        <div class="more-menu__content">
+          <strong>{{ option.title }}</strong>
+          <span>{{ option.description }}</span>
+        </div>
+
+        <span class="more-menu__arrow"> › </span>
+      </a>
+    </section>
+
+    <button class="logout-button" type="button">
+      <span>↪</span>
+      Cerrar sesión
+    </button>
+
+    <div class="more-page__version">
+      Fleet Telemetry
+      <span>v1.0.0</span>
+    </div>
+
+    <!-- Bottom navigation -->
+    <app-bottom-navigation />
+  </main>
+</ion-content>

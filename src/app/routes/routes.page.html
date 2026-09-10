@@ -1,0 +1,122 @@
+<ion-content [fullscreen]="true">
+  <main class="routes-page">
+    <header class="routes-page__header">
+      <a class="routes-page__back" routerLink="/home" aria-label="Volver">
+        ‹
+      </a>
+
+      <div>
+        <h1>Mapa y ruta</h1>
+        <p>Seguimiento de ruta en tiempo real</p>
+      </div>
+
+      <button
+        class="routes-page__location"
+        type="button"
+        aria-label="Centrar mapa"
+      >
+        ◎
+      </button>
+    </header>
+
+    <section class="route-map">
+      <div class="route-map__roads route-map__roads--one"></div>
+      <div class="route-map__roads route-map__roads--two"></div>
+      <div class="route-map__roads route-map__roads--three"></div>
+      <div class="route-map__roads route-map__roads--four"></div>
+      <div class="route-map__roads route-map__roads--five"></div>
+
+      <div class="route-map__route"></div>
+
+      <div class="route-map__marker route-map__marker--origin">
+        <span>●</span>
+      </div>
+
+      <div class="route-map__marker route-map__marker--vehicle">🚚</div>
+
+      <div class="route-map__marker route-map__marker--destination">
+        <span>●</span>
+      </div>
+
+      <button
+        class="route-map__control"
+        type="button"
+        aria-label="Centrar mapa"
+      >
+        ◎
+      </button>
+    </section>
+
+    <section class="route-card">
+      <div class="route-card__header">
+        <div>
+          <span class="route-card__label"> Ruta actual </span>
+
+          <h2>{{ route.name }}</h2>
+        </div>
+
+        <span class="route-card__status">
+          <span></span>
+          {{ route.status }}
+        </span>
+      </div>
+
+      <div class="route-card__vehicle">
+        <div class="route-card__vehicle-icon">🚚</div>
+
+        <div>
+          <span>Vehículo</span>
+          <strong>{{ route.vehicleId }}</strong>
+        </div>
+      </div>
+
+      <div class="route-card__locations">
+        <div class="route-card__location">
+          <span
+            class="route-card__location-dot route-card__location-dot--origin"
+          ></span>
+
+          <div>
+            <small>Origen</small>
+            <strong>{{ route.origin }}</strong>
+          </div>
+        </div>
+
+        <div class="route-card__line"></div>
+
+        <div class="route-card__location">
+          <span
+            class="route-card__location-dot route-card__location-dot--destination"
+          ></span>
+
+          <div>
+            <small>Destino</small>
+            <strong>{{ route.destination }}</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="route-card__stats">
+        <div>
+          <span>Distancia</span>
+          <strong>{{ route.distance }}</strong>
+        </div>
+
+        <div>
+          <span>Tiempo estimado</span>
+          <strong>{{ route.estimatedTime }}</strong>
+        </div>
+      </div>
+
+      <button class="route-card__navigation" type="button">
+        <span>➤</span>
+        Iniciar navegación
+      </button>
+    </section>
+
+    <!-- Bottom navigation -->
+    <app-bottom-navigation />
+    
+  </main>
+</ion-content>
+

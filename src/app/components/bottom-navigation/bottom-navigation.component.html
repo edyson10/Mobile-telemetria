@@ -1,0 +1,50 @@
+<nav class="bottom-navigation">
+
+  <a
+    class="bottom-navigation__item"
+    routerLink="/home"
+    routerLinkActive="bottom-navigation__item--active"
+    [routerLinkActiveOptions]="{ exact: true }"
+  >
+    <span>⌂</span>
+    <small>Inicio</small>
+  </a>
+
+  <a
+    class="bottom-navigation__item"
+    routerLink="/vehicles"
+    routerLinkActive="bottom-navigation__item--active"
+  >
+    <span>🚚</span>
+    <small>Vehículos</small>
+  </a>
+
+  <a
+    class="bottom-navigation__item"
+    routerLink="/alerts"
+    routerLinkActive="bottom-navigation__item--active"
+  >
+    <span>⚠</span>
+    <small>Alertas</small>
+  </a>
+
+  <a
+    class="bottom-navigation__item"
+    routerLink="/routes"
+    routerLinkActive="bottom-navigation__item--active"
+    [routerLinkActiveOptions]="{ exact: true }"
+  >
+    <span>⌁</span>
+    <small>Rutas</small>
+  </a>
+
+  <a
+    class="bottom-navigation__item"
+    routerLink="/more"
+    routerLinkActive="bottom-navigation__item--active"
+  >
+    <span>☰</span>
+    <small>Más</small>
+  </a>
+
+</nav>
