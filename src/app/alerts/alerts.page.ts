@@ -1,87 +1,74 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
+import { IonContent } from '@ionic/angular';
 
 import { BottomNavigationComponent } from '../components/bottom-navigation/bottom-navigation.component';
-
-import { RouterLink } from '@angular/router';
-
-interface Alert {
-  vehicleId: string;
-  type: 'STOPPED' | 'SPEED' | 'ROUTE';
-  title: string;
-  description: string;
-  time: string;
-  active: boolean;
-}
+import { Alert, AlertService } from '../services/alert.service';
 
 @Component({
   selector: 'app-alerts',
   templateUrl: './alerts.page.html',
   styleUrls: ['./alerts.page.scss'],
-  imports: [IonContent, CommonModule, FormsModule, BottomNavigationComponent]
+  imports: [
+    CommonModule,
+    IonContent,
+    BottomNavigationComponent,
+  ],
 })
 export class AlertsPage implements OnInit {
 
-  ngOnInit(): void {
-  }
+  alerts: Alert[] = [];
+
+  loading = false;
+  error = false;
 
   selectedFilter: 'ALL' | 'ACTIVE' | 'HISTORY' = 'ALL';
 
-  alerts: Alert[] = [
-    {
-      vehicleId: 'VH-003',
-      type: 'STOPPED',
-      title: 'Vehículo detenido',
-      description: 'El vehículo lleva más de 1 minuto detenido.',
-      time: 'Hace 5 min',
-      active: true,
-    },
-    {
-      vehicleId: 'VH-001',
-      type: 'SPEED',
-      title: 'Exceso de velocidad',
-      description: 'Velocidad registrada: 105 km/h.',
-      time: 'Hace 18 min',
-      active: true,
-    },
-    {
-      vehicleId: 'VH-005',
-      type: 'ROUTE',
-      title: 'Fuera de ruta',
-      description: 'El vehículo se encuentra fuera de la ruta asignada.',
-      time: 'Hace 32 min',
-      active: true,
-    },
-    {
-      vehicleId: 'VH-002',
-      type: 'STOPPED',
-      title: 'Vehículo detenido',
-      description: 'El vehículo estuvo detenido durante 2 minutos.',
-      time: 'Hace 1 h',
-      active: false,
-    },
-    {
-      vehicleId: 'VH-004',
-      type: 'SPEED',
-      title: 'Exceso de velocidad',
-      description: 'Velocidad registrada: 98 km/h.',
-      time: 'Hace 2 h',
-      active: false,
-    },
-  ];
+  constructor(
+    private readonly alertService: AlertService,
+    private readonly changeDetectorRef: ChangeDetectorRef,
+  ) { }
 
-  get filteredAlerts(): Alert[] {
-    if (this.selectedFilter === 'ACTIVE') {
-      return this.alerts.filter((alert) => alert.active);
-    }
+  ngOnInit(): void {
+    this.loadAlerts();
+  }
 
-    if (this.selectedFilter === 'HISTORY') {
-      return this.alerts.filter((alert) => !alert.active);
-    }
+  loadAlerts(): void {
+    this.loading = true;
+    this.error = false;
 
-    return this.alerts;
+    this.alertService
+      .getRecentAlerts(20)
+      .subscribe({
+        next: (alerts) => {
+          console.log(
+            'Alertas recibidas del backend:',
+            alerts,
+          );
+
+          this.alerts = alerts;
+          this.loading = false;
+          this.error = false;
+
+          this.changeDetectorRef.detectChanges();
+        },
+
+        error: (error) => {
+          console.error(
+            'Error cargando alertas:',
+            error,
+          );
+
+          this.loading = false;
+          this.error = true;
+
+          this.changeDetectorRef.detectChanges();
+        },
+      });
   }
 
   selectFilter(
@@ -90,16 +77,121 @@ export class AlertsPage implements OnInit {
     this.selectedFilter = filter;
   }
 
-  getAlertIcon(type: Alert['type']): string {
-    if (type === 'STOPPED') {
-      return '⏸';
-    }
+  get filteredAlerts(): Alert[] {
 
-    if (type === 'SPEED') {
-      return '⚠';
-    }
+    switch (this.selectedFilter) {
 
-    return '⌁';
+      case 'ACTIVE':
+        return this.alerts.filter(
+          (alert) => this.isAlertActive(alert),
+        );
+
+      case 'HISTORY':
+        return this.alerts.filter(
+          (alert) => !this.isAlertActive(alert),
+        );
+
+      case 'ALL':
+      default:
+        return this.alerts;
+    }
   }
 
+  get activeAlertsCount(): number {
+    return this.alerts.filter(
+      (alert) => this.isAlertActive(alert),
+    ).length;
+  }
+
+  /**
+   * El backend actualmente no envía un campo "active".
+   *
+   * Para mantener el comportamiento visual de la aplicación,
+   * consideramos las alertas de vehículo detenido como activas.
+   */
+  isAlertActive(alert: Alert): boolean {
+    return alert.type === 'VEHICLE_STOPPED';
+  }
+
+  getAlertTitle(alert: Alert): string {
+
+    switch (alert.type) {
+
+      case 'VEHICLE_STOPPED':
+        return 'Vehículo detenido';
+
+      case 'SPEED':
+      case 'SPEED_EXCEEDED':
+      case 'EXCESSIVE_SPEED':
+        return 'Exceso de velocidad';
+
+      case 'ROUTE':
+      case 'OUT_OF_ROUTE':
+        return 'Fuera de ruta';
+
+      default:
+        return alert.message;
+    }
+  }
+
+  getAlertIcon(alert: Alert): string {
+
+    switch (alert.type) {
+
+      case 'VEHICLE_STOPPED':
+        return '⏸';
+
+      case 'SPEED':
+      case 'SPEED_EXCEEDED':
+      case 'EXCESSIVE_SPEED':
+        return '⚠';
+
+      case 'ROUTE':
+      case 'OUT_OF_ROUTE':
+        return '⌁';
+
+      default:
+        return '⚠';
+    }
+  }
+
+  getAlertClass(alert: Alert): string {
+
+    switch (alert.type) {
+
+      case 'VEHICLE_STOPPED':
+        return 'stopped';
+
+      case 'SPEED':
+      case 'SPEED_EXCEEDED':
+      case 'EXCESSIVE_SPEED':
+        return 'speed';
+
+      case 'ROUTE':
+      case 'OUT_OF_ROUTE':
+        return 'route';
+
+      default:
+        return 'default';
+    }
+  }
+
+  formatAlertTime(timestamp: string): string {
+
+    const date = new Date(timestamp);
+
+    if (Number.isNaN(date.getTime())) {
+      return 'Fecha no disponible';
+    }
+
+    return new Intl.DateTimeFormat(
+      'es-CO',
+      {
+        day: '2-digit',
+        month: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+      },
+    ).format(date);
+  }
 }

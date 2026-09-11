@@ -1,12 +1,12 @@
 <ion-content [fullscreen]="true">
   <main class="dashboard">
-    <!-- Header -->
+    <!-- HEADER -->
     <header class="dashboard__header">
       <div class="dashboard__brand">
         <div class="dashboard__brand-icon">🚚</div>
 
         <div>
-          <h1>Fleet Telemetry</h1>
+          <h1>Sistema de Telemetria</h1>
 
           <div class="dashboard__online">
             <span class="dashboard__online-dot"></span>
@@ -24,46 +24,54 @@
       </button>
     </header>
 
-    <!-- Statistics -->
+    <!-- STATISTICS -->
     <section class="dashboard__stats">
+      <!-- VEHÍCULOS -->
       <article class="stat-card">
         <div class="stat-card__header">
           <span>Vehículos</span>
+
           <span class="stat-card__icon stat-card__icon--green"> 🚚 </span>
         </div>
 
-        <strong>12</strong>
+        <strong> {{ totalVehicles }} </strong>
       </article>
 
+      <!-- ALERTAS -->
       <article class="stat-card">
         <div class="stat-card__header">
           <span>Alertas</span>
+
           <span class="stat-card__icon stat-card__icon--red"> ⚠ </span>
         </div>
 
-        <strong>5</strong>
+        <strong> {{ totalAlerts }} </strong>
       </article>
 
+      <!-- RUTAS -->
       <article class="stat-card">
         <div class="stat-card__header">
           <span>Rutas</span>
+
           <span class="stat-card__icon stat-card__icon--blue"> ⌁ </span>
         </div>
 
-        <strong>8</strong>
+        <strong> — </strong>
       </article>
 
+      <!-- DETENIDOS -->
       <article class="stat-card">
         <div class="stat-card__header">
           <span>Detenidos</span>
+
           <span class="stat-card__icon stat-card__icon--purple"> ⏸ </span>
         </div>
 
-        <strong>2</strong>
+        <strong> {{ stoppedVehicles }} </strong>
       </article>
     </section>
 
-    <!-- Map -->
+    <!-- REAL TIME MAP -->
     <section class="map-card">
       <div class="map-card__header">
         <h2>Mapa en tiempo real</h2>
@@ -78,25 +86,28 @@
       </div>
 
       <div class="map-card__map">
+        <!-- ROADS -->
         <div class="map-card__roads map-card__roads--one"></div>
+
         <div class="map-card__roads map-card__roads--two"></div>
+
         <div class="map-card__roads map-card__roads--three"></div>
+
         <div class="map-card__roads map-card__roads--four"></div>
 
+        <!-- VEHICLES -->
         <div
-          class="map-card__vehicle map-card__vehicle--green map-card__vehicle--one"
+          *ngFor="let vehicle of vehicles"
+          class="map-card__vehicle"
+          [class.map-card__vehicle--green]="vehicle.status === 'MOVING'"
+          [class.map-card__vehicle--red]="vehicle.status === 'STOPPED'"
+          [style.left]="vehiclePositions.get(vehicle.id)?.left"
+          [style.top]="vehiclePositions.get(vehicle.id)?.top"
         >
           🚚
         </div>
 
-        <div
-          class="map-card__vehicle map-card__vehicle--green map-card__vehicle--two"
-        >
-          🚚
-        </div>
-
-        <div class="map-card__vehicle map-card__vehicle--red">🚚</div>
-
+        <!-- MAP CONTROL -->
         <button
           class="map-card__control"
           type="button"
@@ -107,7 +118,7 @@
       </div>
     </section>
 
-    <!-- Bottom navigation -->
+    <!-- BOTTOM NAVIGATION -->
     <app-bottom-navigation />
   </main>
 </ion-content>

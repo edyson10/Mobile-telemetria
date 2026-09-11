@@ -1,16 +1,16 @@
 <ion-content [fullscreen]="true">
   <main class="alerts-page">
+    <!-- HEADER -->
     <header class="alerts-page__header">
       <div>
         <h1>Alertas</h1>
         <p>Revisa las alertas de tu flota</p>
       </div>
 
-      <div class="alerts-page__count">
-        {{ alerts.filter(a => a.active).length }}
-      </div>
+      <div class="alerts-page__count">{{ activeAlertsCount }}</div>
     </header>
 
+    <!-- FILTERS -->
     <section class="alerts-filters">
       <button
         type="button"
@@ -37,41 +37,66 @@
       </button>
     </section>
 
-    <section class="alerts-list">
+    <!-- LOADING -->
+    <section *ngIf="loading" class="alerts-page__state">
+      Cargando alertas...
+    </section>
+
+    <!-- ERROR -->
+    <section
+      *ngIf="!loading && error"
+      class="alerts-page__state alerts-page__state--error"
+    >
+      No fue posible cargar las alertas.
+    </section>
+
+    <!-- EMPTY -->
+    <section
+      *ngIf="!loading && !error && filteredAlerts.length === 0"
+      class="alerts-page__state"
+    >
+      No hay alertas para mostrar.
+    </section>
+
+    <!-- ALERT LIST -->
+    <section
+      *ngIf="!loading && !error && filteredAlerts.length > 0"
+      class="alerts-list"
+    >
       <article class="alert-card" *ngFor="let alert of filteredAlerts">
+        <!-- ICON -->
         <div
           class="alert-card__icon"
-          [class.alert-card__icon--speed]="alert.type === 'SPEED'"
-          [class.alert-card__icon--route]="alert.type === 'ROUTE'"
+          [ngClass]="'alert-card__icon--' + getAlertClass(alert)"
         >
-          {{ getAlertIcon(alert.type) }}
+          {{ getAlertIcon(alert) }}
         </div>
 
+        <!-- CONTENT -->
         <div class="alert-card__content">
           <div class="alert-card__title-row">
-            <h2>{{ alert.title }}</h2>
+            <h2>{{ getAlertTitle(alert) }}</h2>
 
             <span
               class="alert-card__status"
-              [class.alert-card__status--history]="!alert.active"
+              [class.alert-card__status--history]="!isAlertActive(alert)"
             >
-              {{ alert.active ? 'Activa' : 'Historial' }}
+              {{ isAlertActive(alert) ? 'Activa' : 'Historial' }}
             </span>
           </div>
 
-          <p>{{ alert.description }}</p>
+          <p>{{ alert.message }}</p>
 
           <div class="alert-card__footer">
             <strong> {{ alert.vehicleId }} </strong>
 
-            <span> {{ alert.time }} </span>
+            <span> {{ formatAlertTime(alert.timestamp) }} </span>
           </div>
         </div>
       </article>
     </section>
 
-    <!-- Bottom navigation -->
+    <!-- BOTTOM NAVIGATION -->
     <app-bottom-navigation />
-
   </main>
 </ion-content>

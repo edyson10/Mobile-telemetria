@@ -64,24 +64,32 @@ ion-content {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-
   margin-top: 4px;
   padding: 4px 8px;
-
   border-radius: 20px;
-
   background: #eaf8f0;
   color: #20a765;
-
   font-size: 8px;
   font-weight: 700;
 }
 
-.vehicle-detail__status span {
+.vehicle-detail__status > span {
   width: 5px;
   height: 5px;
+  flex-shrink: 0;
   border-radius: 50%;
   background: #20b96b;
+}
+
+/* VEHÍCULO DETENIDO */
+
+.vehicle-detail__status--stopped {
+  background: #fff0f1;
+  color: #f04452;
+}
+
+.vehicle-detail__status--stopped > span {
+  background: #f04452;
 }
 
 /* TABS */
